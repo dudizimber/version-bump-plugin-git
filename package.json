@@ -61,7 +61,7 @@
   },
   "homepage": "https://github.com/theogravity/version-bump-plugin-git#readme",
   "dependencies": {
-    "@theo.gravity/version-bump": "^2.0.6",
+    "@theo.gravity/version-bump": "dudizimber/version-bump",
     "git-last-commit": "^1.0.0"
   },
   "devDependencies": {

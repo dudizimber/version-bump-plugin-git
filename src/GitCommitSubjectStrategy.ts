@@ -55,9 +55,14 @@ export default class GitCommitSubjectStrategy extends BaseVersionStrategy {
     // get the current version manifest
     let versionData = this.getCurrentVersion()
     // bump the manifest based on the bump level
-    return bumpVersionData(versionData, bumpLevel, {
-      logger: this.getLogger()
-    })
+    return bumpVersionData(
+      versionData,
+      bumpLevel,
+      {
+        logger: this.getLogger()
+      },
+      this.options.restartBuildVersion
+    )
   }
 
   _determineBumpLevel (message): BUMP_LEVEL {
