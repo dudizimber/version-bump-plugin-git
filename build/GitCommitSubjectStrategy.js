@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const util_1 = __importDefault(require("util"));
-const version_bump_1 = require("@theo.gravity/version-bump");
+const version_bump_updated_1 = require("version-bump-updated");
 const git_last_commit_1 = require("git-last-commit");
 const getLastCommitAsync = util_1.default.promisify(git_last_commit_1.getLastCommit);
 /**
@@ -19,7 +19,7 @@ const getLastCommitAsync = util_1.default.promisify(git_last_commit_1.getLastCom
  *
  * See https://github.com/asamuzaK/semverParser#parsesemverversion-strict for more information.
  */
-class GitCommitSubjectStrategy extends version_bump_1.BaseVersionStrategy {
+class GitCommitSubjectStrategy extends version_bump_updated_1.BaseVersionStrategy {
     static getCommandConfig() {
         return {
             command: GitCommitSubjectStrategy.strategyShortName,
@@ -48,39 +48,39 @@ class GitCommitSubjectStrategy extends version_bump_1.BaseVersionStrategy {
         // get the current version manifest
         let versionData = this.getCurrentVersion();
         // bump the manifest based on the bump level
-        return version_bump_1.bumpVersionData(versionData, bumpLevel, {
+        return version_bump_updated_1.bumpVersionData(versionData, bumpLevel, {
             logger: this.getLogger()
         }, this.options.restartBuildVersion);
     }
     _determineBumpLevel(message) {
         if (!message || typeof message !== 'string') {
-            return version_bump_1.BUMP_LEVEL.LOWEST;
+            return version_bump_updated_1.BUMP_LEVEL.LOWEST;
         }
         if (message.includes('[major]')) {
-            return version_bump_1.BUMP_LEVEL.MAJOR;
+            return version_bump_updated_1.BUMP_LEVEL.MAJOR;
         }
         if (message.includes('[minor]')) {
-            return version_bump_1.BUMP_LEVEL.MINOR;
+            return version_bump_updated_1.BUMP_LEVEL.MINOR;
         }
         if (message.includes('[patch]')) {
-            return version_bump_1.BUMP_LEVEL.PATCH;
+            return version_bump_updated_1.BUMP_LEVEL.PATCH;
         }
         if (message.includes('[pre-major]')) {
-            return version_bump_1.BUMP_LEVEL.PRE_MAJOR;
+            return version_bump_updated_1.BUMP_LEVEL.PRE_MAJOR;
         }
         if (message.includes('[pre-minor]')) {
-            return version_bump_1.BUMP_LEVEL.PRE_MINOR;
+            return version_bump_updated_1.BUMP_LEVEL.PRE_MINOR;
         }
         if (message.includes('[pre-patch]')) {
-            return version_bump_1.BUMP_LEVEL.PRE_PATCH;
+            return version_bump_updated_1.BUMP_LEVEL.PRE_PATCH;
         }
         if (message.includes('[pre-release]')) {
-            return version_bump_1.BUMP_LEVEL.PRE_RELEASE;
+            return version_bump_updated_1.BUMP_LEVEL.PRE_RELEASE;
         }
         if (message.includes('[build-release]')) {
-            return version_bump_1.BUMP_LEVEL.BUILD_RELEASE;
+            return version_bump_updated_1.BUMP_LEVEL.BUILD_RELEASE;
         }
-        return version_bump_1.BUMP_LEVEL.LOWEST;
+        return version_bump_updated_1.BUMP_LEVEL.LOWEST;
     }
 }
 exports.default = GitCommitSubjectStrategy;

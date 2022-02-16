@@ -1,4 +1,4 @@
-import { BaseVersionStrategy, BUMP_LEVEL, IVersionBump } from '@theo.gravity/version-bump';
+import { BaseVersionStrategy, BUMP_LEVEL, IVersionBump } from 'version-bump-updated';
 /**
  * Performs a version bump if the git commit subject contains the following:
  * - [major]

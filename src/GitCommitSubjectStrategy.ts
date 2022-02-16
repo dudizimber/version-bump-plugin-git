@@ -5,7 +5,7 @@ import {
   bumpVersionData,
   BUMP_LEVEL,
   IVersionBump
-} from '@theo.gravity/version-bump'
+} from 'version-bump-updated'
 
 import { getLastCommit } from 'git-last-commit'
 
