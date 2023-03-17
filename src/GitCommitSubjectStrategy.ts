@@ -57,7 +57,6 @@ export default class GitCommitSubjectStrategy extends BaseVersionStrategy {
    */
   async getNextVersion(): Promise<IVersionBump.ParsedSemVerResult> {
     // get the last commit message
-    console.log('this.getOptions()', this.getOptions())
     const { subject } = !!this.getOptions()?.message
       ? { subject: this.getOptions()?.message }
       : await getLastCommitAsync()

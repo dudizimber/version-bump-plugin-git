@@ -51,7 +51,6 @@ class GitCommitSubjectStrategy extends version_bump_updated_1.BaseVersionStrateg
     async getNextVersion() {
         var _a, _b;
         // get the last commit message
-        console.log('this.getOptions()', this.getOptions());
         const { subject } = !!((_a = this.getOptions()) === null || _a === void 0 ? void 0 : _a.message)
             ? { subject: (_b = this.getOptions()) === null || _b === void 0 ? void 0 : _b.message }
             : await getLastCommitAsync();
