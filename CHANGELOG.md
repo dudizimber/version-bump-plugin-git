@@ -1,11 +1,15 @@
+# 2.0.3 - Fri Mar 17 2023 14:08:55
+
+Add `message` parameter.
+
 # 2.0.1 - Mon Mar 30 2020 09:23:56
 
 Update CI, use typescript.
 
 Breaking:
 
-- Changed the strategy name from `git-commit-msg` -> `git-commit-subj` to reflect it pulls 
-from the subject line
+- Changed the strategy name from `git-commit-msg` -> `git-commit-subj` to reflect it pulls
+  from the subject line
 
 # 1.0.5 - Thu Sep 20 2018 08:11:21
 
