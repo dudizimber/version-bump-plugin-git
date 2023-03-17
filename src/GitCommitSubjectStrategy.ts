@@ -30,7 +30,7 @@ export default class GitCommitSubjectStrategy extends BaseVersionStrategy {
     return {
       command: GitCommitSubjectStrategy.strategyShortName,
       describe: `Uses the last git commit subject to determine the bump level. Will bump based on the following text:
-        
+
           * [major]
           * [minor]
           * [patch]
@@ -39,8 +39,16 @@ export default class GitCommitSubjectStrategy extends BaseVersionStrategy {
           * [pre-patch]
           * [pre-release]
           * [build-release]
-        
-        Default is the lowest version possible.`
+
+        Default is the lowest version possible.
+
+        You can also pass the commit message as an argument to this command.
+        `,
+      builder: yargs => {
+        yargs.option('message', {
+          describe: 'The commit message to use to determine the bump level.'
+        })
+      }
     }
   }
 
@@ -49,9 +57,11 @@ export default class GitCommitSubjectStrategy extends BaseVersionStrategy {
    */
   async getNextVersion (): Promise<IVersionBump.ParsedSemVerResult> {
     // get the last commit message
-    const lastCommit = await getLastCommitAsync()
+    const { subject } = !!this.getOptions()?.message
+      ? { subject: this.getOptions()?.message }
+      : await getLastCommitAsync()
     // analyze the commit message to determine what bump level to use
-    const bumpLevel = this._determineBumpLevel(lastCommit.subject)
+    const bumpLevel = this._determineBumpLevel(subject)
     // get the current version manifest
     let versionData = this.getCurrentVersion()
     // bump the manifest based on the bump level

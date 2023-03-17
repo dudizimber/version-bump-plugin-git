@@ -247,4 +247,21 @@ describe('GitCommitSubjectStrategy', () => {
       version: '1.2.3-pre.1+0'
     })
   })
+
+  it('should bump the build version 2 using the message argument', async () => {
+    const s = new GitCommitSubjectStrategy({ message: '[build-release]' })
+    await s.init({ currentVersion: '1.2.3-pre.1' })
+
+    const versionData = await s.getNextVersion()
+
+    expect(versionData).toEqual({
+      build: [0],
+      major: 1,
+      minor: 2,
+      patch: 3,
+      pre: ['pre', 1],
+      matches: true,
+      version: '1.2.3-pre.1+0'
+    })
+  })
 })
