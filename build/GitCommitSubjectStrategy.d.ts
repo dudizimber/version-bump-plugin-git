@@ -16,6 +16,7 @@ export default class GitCommitSubjectStrategy extends BaseVersionStrategy {
     static getCommandConfig(): {
         command: string;
         describe: string;
+        builder: (yargs: any) => void;
     };
     /**
      * Returns the next release version to update the versionFile with.

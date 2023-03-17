@@ -24,7 +24,7 @@ class GitCommitSubjectStrategy extends version_bump_updated_1.BaseVersionStrateg
         return {
             command: GitCommitSubjectStrategy.strategyShortName,
             describe: `Uses the last git commit subject to determine the bump level. Will bump based on the following text:
-        
+
           * [major]
           * [minor]
           * [patch]
@@ -33,18 +33,30 @@ class GitCommitSubjectStrategy extends version_bump_updated_1.BaseVersionStrateg
           * [pre-patch]
           * [pre-release]
           * [build-release]
-        
-        Default is the lowest version possible.`
+
+        Default is the lowest version possible.
+
+        You can also pass the commit message as an argument to this command.
+        `,
+            builder: yargs => {
+                yargs.option('message', {
+                    describe: 'The commit message to use to determine the bump level.'
+                });
+            }
         };
     }
     /**
      * Returns the next release version to update the versionFile with.
      */
     async getNextVersion() {
+        var _a, _b;
         // get the last commit message
-        const lastCommit = await getLastCommitAsync();
+        console.log('this.getOptions()', this.getOptions());
+        const { subject } = !!((_a = this.getOptions()) === null || _a === void 0 ? void 0 : _a.message)
+            ? { subject: (_b = this.getOptions()) === null || _b === void 0 ? void 0 : _b.message }
+            : await getLastCommitAsync();
         // analyze the commit message to determine what bump level to use
-        const bumpLevel = this._determineBumpLevel(lastCommit.subject);
+        const bumpLevel = this._determineBumpLevel(subject);
         // get the current version manifest
         let versionData = this.getCurrentVersion();
         // bump the manifest based on the bump level

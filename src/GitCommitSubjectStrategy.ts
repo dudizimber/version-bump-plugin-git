@@ -26,7 +26,7 @@ const getLastCommitAsync = util.promisify(getLastCommit)
 export default class GitCommitSubjectStrategy extends BaseVersionStrategy {
   static strategyShortName = 'git-commit-subj'
 
-  static getCommandConfig () {
+  static getCommandConfig() {
     return {
       command: GitCommitSubjectStrategy.strategyShortName,
       describe: `Uses the last git commit subject to determine the bump level. Will bump based on the following text:
@@ -55,8 +55,9 @@ export default class GitCommitSubjectStrategy extends BaseVersionStrategy {
   /**
    * Returns the next release version to update the versionFile with.
    */
-  async getNextVersion (): Promise<IVersionBump.ParsedSemVerResult> {
+  async getNextVersion(): Promise<IVersionBump.ParsedSemVerResult> {
     // get the last commit message
+    console.log('this.getOptions()', this.getOptions())
     const { subject } = !!this.getOptions()?.message
       ? { subject: this.getOptions()?.message }
       : await getLastCommitAsync()
@@ -75,7 +76,7 @@ export default class GitCommitSubjectStrategy extends BaseVersionStrategy {
     )
   }
 
-  _determineBumpLevel (message): BUMP_LEVEL {
+  _determineBumpLevel(message): BUMP_LEVEL {
     if (!message || typeof message !== 'string') {
       return BUMP_LEVEL.LOWEST
     }
